@@ -3,8 +3,8 @@
 
 void *Player::reader_func(void *ptr)
 {
-    Player * player1 = (Player *)ptr;
-    player1->read();
+    Player * player = (Player *)ptr;
+    player->read();
     return NULL;
 }
 
@@ -12,8 +12,8 @@ void *Player::reader_func(void *ptr)
 
 void *Player::decode_func(void *ptr)
 {
-    Player * player2 = (Player *)ptr;
-    player2->decode();
+    Player * player = (Player *)ptr;
+    player->decode();
     return NULL;
 }
 Player::Player(QObject *parent) : QObject(parent)
@@ -157,7 +157,7 @@ bool Player::open(QString filename)
                                    vCtx->height,
                                    AV_PIX_FMT_RGBA,
                                    SWS_BICUBIC,NULL,NULL,NULL);
-        image = QImage(vCtx->width,vCtx->height,QImage::Format_RGB888);
+        image = QImage(vCtx->width,vCtx->height,QImage::Format_RGBA8888);
         frm = av_frame_alloc();
         eof = false;
         seekFlag = false;
@@ -170,6 +170,7 @@ bool Player::open(QString filename)
         result = true;
     }
     while(0);
+    MyDebug() << "opensuccess";
     return result;
 }
 
@@ -374,7 +375,10 @@ void Player::decode_video_packet(AVPacket *pkt)
 
     //sws
     uint8_t * const dst[] = {image.bits()};
+   // MyDebug() << image.bits();
     const int dstStride[] = {image.width()*4};
+    // MyDebug() << image.width() * 4;
     sws_scale(sws,frm->data,frm->linesize,0,frm->height,dst,dstStride);
     emit this->sigNewImage(image);
 }
+

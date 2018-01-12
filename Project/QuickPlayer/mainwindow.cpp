@@ -18,7 +18,8 @@ Mainwindow::Mainwindow(QWidget *parent) : QMainWindow(parent)
     menu->addAction("Pause",this,SLOT(slotPause()));
     menu->addAction("Resume",this,SLOT(slotResume()));
     menu->addAction("Exit",this,SLOT(close()));
-
+    menu->addAction("Login",this,SLOT(slotLogin()));
+    menu->addAction("Register",this,SLOT(slotRegister()));
     QStatusBar * status = statusBar();
     status->addWidget(slider = new QSlider(Qt::Horizontal));
     status->addWidget(speed = new QLineEdit);
@@ -101,4 +102,15 @@ void Mainwindow::slotSpeedChanged()
     {
         player->setSpeed(s);
     }
+}
+
+void Mainwindow::slotLogin()
+{
+
+}
+
+void Mainwindow::slotRegister()
+{
+    Register r;
+    r.exec();
 }

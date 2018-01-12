@@ -23,7 +23,7 @@ class Player : public QObject
 {
     Q_OBJECT
 public:
-    explicit Player(QObject *parent = nullptr);
+    explicit Player(QObject *parent = 0);
     ~Player();
 
     bool open(QString filename);

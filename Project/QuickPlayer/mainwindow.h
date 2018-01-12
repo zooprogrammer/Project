@@ -6,7 +6,7 @@
 #include "surface.h"
 #include <QSlider>
 #include <QLineEdit>
-
+#include "register.h"
 class Mainwindow : public QMainWindow
 {
     Q_OBJECT
@@ -30,6 +30,9 @@ public slots:
     void slotNewImage(QImage);
     void slotSliderChanged();
     void slotSpeedChanged();
+
+    void slotLogin();
+    void slotRegister();
 
 
 };
