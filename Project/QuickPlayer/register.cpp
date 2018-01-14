@@ -56,9 +56,12 @@ void Register::slotReg()
     QNetworkRequest req;
     QString url = QString("http://%1:%2/reg").arg(SERVER_IP).arg(SERVER_PORT);
     qDebug() << url;
+    req.setUrl(url);
+    req.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
 
     QByteArray data = QJsonDocument(obj).toJson(); //json
-    req.setUrl(QUrl(url));
+    man->post(req,data);
+
 }
 
 void Register::slotNetworkApply(QNetworkReply *)
